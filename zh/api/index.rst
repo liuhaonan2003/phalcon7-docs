@@ -46,6 +46,7 @@ API Indice
    Phalcon_Cache_Backend_Mongo
    Phalcon_Cache_Backend_Redis
    Phalcon_Cache_Backend_Xcache
+   Phalcon_Cache_Backend_Yac
    Phalcon_Cache_Exception
    Phalcon_Cache_Frontend_Base64
    Phalcon_Cache_Frontend_Data
@@ -54,7 +55,8 @@ API Indice
    Phalcon_Cache_Frontend_None
    Phalcon_Cache_Frontend_Output
    Phalcon_Cache_Multiple
-   Phalcon_Cache_SHMemory
+   Phalcon_Cache_Yac
+   Phalcon_Chart_Exception
    Phalcon_Cli_Console
    Phalcon_Cli_Console_Exception
    Phalcon_Cli_Dispatcher
@@ -156,6 +158,8 @@ API Indice
    Phalcon_Image_Exception
    Phalcon_Intrusive_Avltree
    Phalcon_Intrusive_Avltree_Node
+   Phalcon_Intrusive_Rbtree
+   Phalcon_Intrusive_Rbtree_Node
    Phalcon_JsonRPc_Client_Response
    Phalcon_JsonRpc_Client
    Phalcon_JsonRpc_Client_Exception
@@ -260,12 +264,20 @@ API Indice
    Phalcon_Security
    Phalcon_Security_Exception
    Phalcon_Security_Random
+   Phalcon_Server
+   Phalcon_Server_Exception
+   Phalcon_Server_Http
    Phalcon_Session_Adapter
    Phalcon_Session_Adapter_Cache
    Phalcon_Session_Adapter_Files
    Phalcon_Session_Adapter_Memcached
    Phalcon_Session_Bag
    Phalcon_Session_Exception
+   Phalcon_Socket
+   Phalcon_Socket_Client
+   Phalcon_Socket_Exception
+   Phalcon_Socket_Server
+   Phalcon_Storage_Bloomfilter
    Phalcon_Storage_Btree
    Phalcon_Storage_Exception
    Phalcon_Tag
@@ -275,6 +287,7 @@ API Indice
    Phalcon_Translate_Adapter
    Phalcon_Translate_Adapter_Gettext
    Phalcon_Translate_Adapter_NativeArray
+   Phalcon_Translate_Adapter_Php
    Phalcon_Translate_Exception
    Phalcon_Validation
    Phalcon_Validation_Exception
