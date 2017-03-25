@@ -108,6 +108,7 @@
 <li><a class="reference internal" href="#mongo-mongo-backend-options">Mongo 后端存储器选项（Mongo Backend Options）</a></li>
 <li><a class="reference internal" href="#xcache-xcache-backend-options">XCache 后端存储器选项（XCache Backend Options）</a></li>
 <li><a class="reference internal" href="#redis-backend-options">Redis Backend Options</a></li>
+<li><a class="reference internal" href="#yac-backend-options">Yac Backend Options</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#shared-memory-cache">共享内存缓存（Shared Memory Cache）</a></li>
@@ -577,7 +578,13 @@
 <td><a class="reference external" href="http://pecl.php.net/package/redis">redis extension</a></td>
 <td><a class="reference internal" href="../api/Phalcon_Cache_Backend_Redis.html"><span class="doc">Phalcon\Cache\Backend\Redis</span></a></td>
 </tr>
-<tr class="row-even"><td>Memeory</td>
+<tr class="row-even"><td>Yac</td>
+<td>Stores data in Yac</td>
+<td><a class="reference external" href="http://redis.io/">Redis</a></td>
+<td><a href="#id1"><span class="problematic" id="id2">`yac extension`_</span></a></td>
+<td><a class="reference internal" href="../api/Phalcon_Cache_Backend_Yac.html"><span class="doc">Phalcon\Cache\Backend\Yac</span></a></td>
+</tr>
+<tr class="row-odd"><td>Memeory</td>
 <td>存储数据在内存中，请求完成后释放</td>
 <td>无</td>
 <td>无</td>
@@ -728,20 +735,43 @@
 <tr class="row-even"><td>prefix</td>
 <td>A prefix that is automatically prepended to the cache keys</td>
 </tr>
-<tr class="row-odd"><td>host</td>
+<tr class="row-odd"><td>redis</td>
+<td>Redis 对象实例，如果设置该项将忽略 host 等选项</td>
+</tr>
+<tr class="row-even"><td>host</td>
 <td>Redis host</td>
 </tr>
-<tr class="row-even"><td>port</td>
+<tr class="row-odd"><td>port</td>
 <td>Redis port</td>
 </tr>
-<tr class="row-odd"><td>auth</td>
+<tr class="row-even"><td>auth</td>
 <td>Password to authenticate to a password-protected Redis server</td>
 </tr>
-<tr class="row-even"><td>persistent</td>
+<tr class="row-odd"><td>persistent</td>
 <td>Create a persistent connection to Redis</td>
 </tr>
-<tr class="row-odd"><td>index</td>
+<tr class="row-even"><td>db</td>
 <td>The index of the Redis database to use</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="yac-backend-options">
+<h3>Yac Backend Options<a class="headerlink" href="#yac-backend-options" title="永久链接至标题">¶</a></h3>
+<p>This backend will store cached content on a Yac (<a href="#id3"><span class="problematic" id="id4">Yac_</span></a>). The available options for this backend are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>prefix</td>
+<td>A prefix that is automatically prepended to the cache keys</td>
 </tr>
 </tbody>
 </table>
@@ -749,7 +779,7 @@
 </div>
 <div class="section" id="shared-memory-cache">
 <h2>共享内存缓存（Shared Memory Cache）<a class="headerlink" href="#shared-memory-cache" title="永久链接至标题">¶</a></h2>
-<p>Phalcon 内部还提供了 <a class="reference internal" href="../api/Phalcon_Cache_SHMemory.html"><span class="doc">Phalcon\Cache\SHMemory</span></a> 类似 <cite>APC</cite> 的缓存服务。</p>
+<p>Phalcon 内部还内置了 <a class="reference internal" href="../api/Phalcon_Cache_Yac.html"><span class="doc">Phalcon\Cache\Yac</span></a> 类似 <cite>APC</cite> 的缓存服务。</p>
 </div>
 </div>
 

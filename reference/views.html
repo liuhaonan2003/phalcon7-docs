@@ -1057,7 +1057,7 @@
 <span class="sd">     * Adapter constructor</span>
 <span class="sd">     *</span>
 <span class="sd">     * @param \Phalcon\Mvc\View $view</span>
-<span class="sd">     * @param \Phalcon\DI $di</span>
+<span class="sd">     * @param \Phalcon\Di $di</span>
 <span class="sd">     */</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$view</span><span class="p">,</span> <span class="nv">$di</span><span class="p">)</span>
     <span class="p">{</span>
@@ -1148,7 +1148,7 @@
 </div>
 <div class="section" id="injecting-services-in-view">
 <h2>注入服务到视图（Injecting services in View）<a class="headerlink" href="#injecting-services-in-view" title="永久链接至标题">¶</a></h2>
-<p>每个视图执行内部包含一个 <a class="reference internal" href="../api/Phalcon_DI_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> 实例, 提供方便地方式访问应用程序的服务容器。</p>
+<p>每个视图执行内部包含一个 <a class="reference internal" href="../api/Phalcon_Di_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> 实例, 提供方便地方式访问应用程序的服务容器。</p>
 <p>下面的示例演示如何用一个框架约定好的URL服务写一个 jQuery <a class="reference external" href="http://api.jquery.com/jQuery.ajax/">ajax request</a> 。
 &#8220;url&#8221; (usually <a class="reference internal" href="url.html"><span class="doc">Phalcon\Mvc\Url</span></a>) 服务被注入在视图由相同名称的属性访问：</p>
 <div class="highlight-html+php"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>

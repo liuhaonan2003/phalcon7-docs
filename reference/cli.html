@@ -127,7 +127,7 @@
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="c1">// 使用CLI工厂类作为默认的服务容器</span>
-<span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\DI\FactoryDefault\Cli</span><span class="p">();</span>
+<span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\Di\FactoryDefault\Cli</span><span class="p">();</span>
 
 <span class="c1">// 定义应用目录路径</span>
 <span class="nb">defined</span><span class="p">(</span><span class="s1">&#39;APPLICATION_PATH&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;APPLICATION_PATH&#39;</span><span class="p">,</span> <span class="nb">realpath</span><span class="p">(</span><span class="nb">dirname</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">)));</span>
@@ -150,7 +150,7 @@
 <span class="p">}</span>
 
 <span class="c1">// 创建console应用</span>
-<span class="nv">$console</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\CLI\Console</span><span class="p">();</span>
+<span class="nv">$console</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\Cli\Console</span><span class="p">();</span>
 <span class="nv">$console</span><span class="o">-&gt;</span><span class="na">setDI</span><span class="p">(</span><span class="nv">$di</span><span class="p">);</span>
 
 <span class="k">try</span> <span class="p">{</span>
@@ -170,8 +170,8 @@
 <p>通过 <cite>argv</cite> 解析应用参数：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\DI\FactoryDefault\Cli</span> <span class="k">as</span> <span class="nx">CliDI</span><span class="p">,</span>
-    <span class="nx">Phalcon\CLI\Console</span> <span class="k">as</span> <span class="nx">ConsoleApp</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Di\FactoryDefault\Cli</span> <span class="k">as</span> <span class="nx">CliDI</span><span class="p">,</span>
+    <span class="nx">Phalcon\Cli\Console</span> <span class="k">as</span> <span class="nx">ConsoleApp</span><span class="p">;</span>
 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">);</span>
 
@@ -257,7 +257,7 @@
 <span class="nv">$opts</span> <span class="o">=</span> <span class="nb">getopt</span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;namespace:&#39;</span><span class="p">,</span> <span class="s1">&#39;dev::&#39;</span><span class="p">,</span><span class="s1">&#39;action::&#39;</span><span class="p">));</span>
 
 <span class="c1">// 创建console应用</span>
-<span class="nv">$console</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\CLI\Console</span><span class="p">();</span>
+<span class="nv">$console</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\Cli\Console</span><span class="p">();</span>
 <span class="nv">$console</span><span class="o">-&gt;</span><span class="na">setDI</span><span class="p">(</span><span class="nv">$di</span><span class="p">);</span>
 
 <span class="c1">// 处理console应用参数</span>
@@ -282,7 +282,7 @@
 <p>下面即是一个mainTask的例子（ app/tasks/MainTask.php ）：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\CLI\Task</span>
+<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\Cli\Task</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">mainAction</span><span class="p">()</span>
     <span class="p">{</span>
@@ -298,7 +298,7 @@
 <p>如果你使用下面的参数和动作运行应用程序:</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\CLI\Task</span>
+<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\Cli\Task</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">mainAction</span><span class="p">()</span>
     <span class="p">{</span>
@@ -343,7 +343,7 @@ best regards, universe
 <p>然后开发者即可在一个action中使用用其它的action了. 下面即是例子：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\CLI\Task</span>
+<span class="k">class</span> <span class="nc">MainTask</span> <span class="k">extends</span> <span class="nx">\Phalcon\Cli\Task</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">mainAction</span><span class="p">()</span>
     <span class="p">{</span>
@@ -364,7 +364,7 @@ best regards, universe
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>当然， 通过扩展 <a class="reference internal" href="../api/Phalcon_CLI_Task.html"><span class="doc">Phalcon\Cli\Task</span></a> 来实现如上操作会是一个更好主意。</p>
+<p>当然， 通过扩展 <a class="reference internal" href="../api/Phalcon_Cli_Task.html"><span class="doc">Phalcon\Cli\Task</span></a> 来实现如上操作会是一个更好主意。</p>
 </div>
 <div class="section" id="mvc-running-mvc-application">
 <h2>运行 MVC 应用（Running MVC Application）<a class="headerlink" href="#mvc-running-mvc-application" title="永久链接至标题">¶</a></h2>

@@ -201,7 +201,7 @@
     <span class="p">))</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
 
     <span class="c1">// Create a DI</span>
-    <span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\DI\FactoryDefault</span><span class="p">();</span>
+    <span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\Di\FactoryDefault</span><span class="p">();</span>
 
     <span class="c1">// Setup the view component</span>
     <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -249,7 +249,7 @@
 <div class="section" id="dependency-management">
 <h3>依赖管理（Dependency Management）<a class="headerlink" href="#dependency-management" title="永久链接至标题">¶</a></h3>
 <p>在使用Phalcon时必须理解的一个非常重要的概念是 <a class="reference internal" href="di.html"><span class="doc">依赖注入容器(dependency injection container)</span></a>. 这听起来复杂,但实际上非常简单实用。</p>
-<p>服务容器是一个全局存储的将要被使用的应用程序功能包。每次框架需要的一个组件时，会请求这个使用协定好名称的服务容器。因为Phalcon是一个高度解耦的框架， <a class="reference internal" href="../api/Phalcon_DI.html"><span class="doc">Phalcon\Di</span></a> 作为黏合剂，促使不同组件的集成，以一个透明的方式实现他们一起进行工作。</p>
+<p>服务容器是一个全局存储的将要被使用的应用程序功能包。每次框架需要的一个组件时，会请求这个使用协定好名称的服务容器。因为Phalcon是一个高度解耦的框架， <a class="reference internal" href="../api/Phalcon_Di.html"><span class="doc">Phalcon\Di</span></a> 作为黏合剂，促使不同组件的集成，以一个透明的方式实现他们一起进行工作。</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="c1">// ...</span>
@@ -258,7 +258,7 @@
 <span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phalcon\Db\Adapter\Pdo\Mysql</span><span class="p">();</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="../api/Phalcon_DI_FactoryDefault.html"><span class="doc">Phalcon\Di\FactoryDefault</span></a> 是 <a class="reference internal" href="../api/Phalcon_DI.html"><span class="doc">Phalcon\Di</span></a> 的一个变体。为了让事情变得更容易，它已注册了Phalcon的大多数组件。
+<p><a class="reference internal" href="../api/Phalcon_Di_FactoryDefault.html"><span class="doc">Phalcon\Di\FactoryDefault</span></a> 是 <a class="reference internal" href="../api/Phalcon_Di.html"><span class="doc">Phalcon\Di</span></a> 的一个变体。为了让事情变得更容易，它已注册了Phalcon的大多数组件。
 因此，我们不需要一个一个注册这些组件。在以后更换工厂服务的时候也不会有什么问题。</p>
 <p>在接下来的部分，我们注册了“视图(view)”服务，指示框架将去指定的目录寻找视图文件。由于视图并非PHP类，它们不能被自动加载器加载。</p>
 <p>服务可以通过多种方式进行登记，但在我们的教程中，我们将使用一个匿名函数 <a class="reference external" href="http://php.net/manual/zh/functions.anonymous.php">anonymous function</a>:</p>
@@ -458,7 +458,7 @@
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Phalcon\Loader</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Phalcon\DI\FactoryDefault</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Di\FactoryDefault</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\View</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Application</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Url</span> <span class="k">as</span> <span class="nx">UrlProvider</span><span class="p">;</span>

@@ -252,7 +252,7 @@ INVO是我们创建的一个程序样本。INVO是一个简单的用来允许用
 </div>
 <div class="section" id="dependency-injection">
 <h2>依赖注入（Dependency Injection）<a class="headerlink" href="#dependency-injection" title="永久链接至标题">¶</a></h2>
-<p>Phalcon 是一个高度解耦的框架，所以我们一个组件来充当胶水来让每个组件都能正常工作。这个组件就是 <span class="xref doc">Phalcon\Di</span>。这是一个服务容器，可以执行依赖注入和服务定位，实例化应用所需要的所有组件。</p>
+<p>Phalcon 是一个高度解耦的框架，所以我们一个组件来充当胶水来让每个组件都能正常工作。这个组件就是 <a class="reference internal" href="../api/Phalcon_Di.html"><span class="doc">Phalcon\Di</span></a>。这是一个服务容器，可以执行依赖注入和服务定位，实例化应用所需要的所有组件。</p>
 <p>在容器中有多种注册服务的方法。在INVO里, 大部分服务使用匿名函数或者闭包来进行注册的, 对象以惰性的方式被实例化，减少了应用程序所需要的资源。</p>
 <p>例如，下面摘录了 Session 服务的注册。当应用程序需要访问 Session 数据的时候，匿名函数才会被调用：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
@@ -272,10 +272,10 @@ INVO是我们创建的一个程序样本。INVO是一个简单的用来允许用
 </pre></div>
 </div>
 <p>这里，我们可以自由的更改适配器，执行额外的初始化或者其他操作。注意，这个服务器是使用 <cite>session</cite> 名字进行注册的。这是一个惯例，来允许框架在服务容器中识别正在活动的服务.</p>
-<p>一个请求可以使用多个服务，单独注册每个服务可以说是一个繁重的任务。因此，框架提供了 <span class="xref doc">Phalcon\Di</span> 的一个变种，称作  <span class="xref doc">Phalcon\Di\FactoryDefault</span>，其任务是注册所有 MVC 所需要的服务来提供一个全栈框架。</p>
+<p>一个请求可以使用多个服务，单独注册每个服务可以说是一个繁重的任务。因此，框架提供了 <a class="reference internal" href="../api/Phalcon_Di.html"><span class="doc">Phalcon\Di</span></a> 的一个变种，称作  <a class="reference internal" href="../api/Phalcon_Di_FactoryDefault.html"><span class="doc">Phalcon\Di\FactoryDefault</span></a>，其任务是注册所有 MVC 所需要的服务来提供一个全栈框架。</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\DI\FactoryDefault</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Di\FactoryDefault</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 

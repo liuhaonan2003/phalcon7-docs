@@ -98,6 +98,12 @@
 <p>Validate a set of data according to a set of rules</p>
 <p>abstract public <a class="reference internal" href="Phalcon_Validation.html"><span class="doc">Phalcon\Validation</span></a>  <strong>add</strong> (<em>string</em> $attribute, <em>unknown</em> $validator)</p>
 <p>Adds a validator to a field</p>
+<p>abstract public <em>string</em>  <strong>getLabel</strong> (<em>string|array</em> $field)</p>
+<p>Get label for field</p>
+<p>abstract public <em>mixed</em>  <strong>getValue</strong> (<em>string</em> $attribute, [<em>unknown</em> $entity])</p>
+<p>Gets the a value to validate in the array/object data source</p>
+<p>abstract public  <strong>appendMessage</strong> (<a class="reference internal" href="Phalcon_Validation_MessageInterface.html"><span class="doc">Phalcon\Validation\MessageInterface</span></a> $message)</p>
+<p>...</p>
 <p>abstract public <a class="reference internal" href="Phalcon_Validation_Message_Group.html"><span class="doc">Phalcon\Validation\Message\Group</span></a>  <strong>getMessages</strong> ()</p>
 <p>Returns the registered validators</p>
 </div>

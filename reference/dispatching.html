@@ -350,7 +350,7 @@
 <p>默认下，参数会按URL传递的顺序传给对应的动作，你可以按期望来转换他们：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\DIspatcher</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Dispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Dispatcher</span> <span class="k">as</span> <span class="nx">MvcDispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Events\Manager</span> <span class="k">as</span> <span class="nx">EventsManager</span><span class="p">;</span>
 
@@ -386,7 +386,7 @@
 <p>如果期望的链接是这样： <a class="reference external" href="http://example.com/controller/key1:value1/key2:value">http://example.com/controller/key1:value1/key2:value</a>，那么就需要以下这样的代码：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\DIspatcher</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Dispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Dispatcher</span> <span class="k">as</span> <span class="nx">MvcDispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Events\Manager</span> <span class="k">as</span> <span class="nx">EventsManager</span><span class="p">;</span>
 
@@ -422,7 +422,7 @@
 <div class="section" id="getting-parameters">
 <h2>获取参数（Getting Parameters）<a class="headerlink" href="#getting-parameters" title="永久链接至标题">¶</a></h2>
 <p>当路由提供了命名的参数变量，你就可以在控制器、视图或者任何一个继承了
-<a class="reference internal" href="../api/Phalcon_DI_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> 的组件中获得这些参数。</p>
+<a class="reference internal" href="../api/Phalcon_Di_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> 的组件中获得这些参数。</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Controller</span><span class="p">;</span>
@@ -602,7 +602,7 @@
 <p>使用 <a class="reference internal" href="events.html"><span class="doc">EventsManager</span></a> ，可以在调度器找不到对应的控制器/动作组时而抛出异常前，插入一个钩子：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\DIspatcher</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Phalcon\Dispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Dispatcher</span> <span class="k">as</span> <span class="nx">MvcDispatcher</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Events\Manager</span> <span class="k">as</span> <span class="nx">EventsManager</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Dispatcher\Exception</span> <span class="k">as</span> <span class="nx">DispatchException</span><span class="p">;</span>

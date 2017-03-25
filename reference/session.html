@@ -135,7 +135,7 @@ Thanks to the service container, we can ensure that the session is accessed only
 </div>
 <div class="section" id="storing-retrieving-data-in-session">
 <h2>会话数据的存储与读取（Storing/Retrieving data in Session）<a class="headerlink" href="#storing-retrieving-data-in-session" title="永久链接至标题">¶</a></h2>
-<p>From a controller, a view or any other component that extends <a class="reference internal" href="../api/Phalcon_DI_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> you can access the session service
+<p>From a controller, a view or any other component that extends <a class="reference internal" href="../api/Phalcon_Di_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> you can access the session service
 and store items and retrieve them in the following way:</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
@@ -232,7 +232,7 @@ it&#8217;s automatically stored in session:</p>
 </div>
 <div class="section" id="persistent-data-in-components">
 <h2>组件的持久数据（Persistent Data in Components）<a class="headerlink" href="#persistent-data-in-components" title="永久链接至标题">¶</a></h2>
-<p>Controller, components and classes that extends <a class="reference internal" href="../api/Phalcon_DI_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> may inject
+<p>Controller, components and classes that extends <a class="reference internal" href="../api/Phalcon_Di_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a> may inject
 a <a class="reference internal" href="../api/Phalcon_Session_Bag.html"><span class="doc">Phalcon\Session\Bag</span></a>. This class isolates variables for every class.
 Thanks to this you can persist data between requests in every class in an independent way.</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>

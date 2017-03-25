@@ -476,7 +476,7 @@
 </div>
 <div class="section" id="hmvc-hmvc-request-system">
 <h2>HMVC 请求（HMVC request system）<a class="headerlink" href="#hmvc-hmvc-request-system" title="永久链接至标题">¶</a></h2>
-<p>以下示例演示了如何完成 HMVC 请求：</p>
+<p>在 HMVC 的父子 MVC 之间，调度控制器、路由以及视图组件是分离的，以下示例演示了如何完成 HMVC 请求：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">class</span> <span class="nc">HmvcController</span> <span class="k">extends</span> <span class="nx">Phalcon\Mvc\Controller</span>
@@ -494,6 +494,8 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<blockquote class="highlights">
+<div>慎用 <cite>exit</cite> 可以使用抛出异常 <a class="reference internal" href="../api/Phalcon_ContinueException.html"><span class="doc">Phalcon\ContinueException</span></a> 退出 action，注入调度控制器、路由以及视图组件时不要使用 <cite>require_once</cite> 返回对象。</div></blockquote>
 </div>
 </div>
 

@@ -85,14 +85,16 @@
 <li><a class="reference internal" href="#">验证（Validation）</a><ul>
 <li><a class="reference internal" href="#initializing-validation">初始化验证（Initializing Validation）</a></li>
 <li><a class="reference internal" href="#validators">验证器（Validators）</a><ul>
+<li><a class="reference internal" href="#custom-validator">自定义验证器（Custom Validator）</a></li>
 <li><a class="reference internal" href="#the-use-of-the-validator">验证器的使用（The use of the validator）</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#validation-messages">验证信息（Validation Messages）</a></li>
+<li><a class="reference internal" href="#custom-validator-message">通过配置文件重定义验证器信息（Custom Validator Message）</a></li>
 <li><a class="reference internal" href="#filtering-of-data">过滤数据（Filtering of Data）</a></li>
 <li><a class="reference internal" href="#validation-events">验证事件（Validation Events）</a></li>
 <li><a class="reference internal" href="#cancelling-validations">取消验证（Cancelling Validations）</a></li>
-<li><a class="reference internal" href="#avoid-validate-empty-values">Avoid validate empty values</a></li>
+<li><a class="reference internal" href="#avoid-validate-empty-values">允许空值（Avoid validate empty values）</a></li>
 </ul>
 </li>
 </ul>
@@ -285,6 +287,8 @@
 </tr>
 </tbody>
 </table>
+<div class="section" id="custom-validator">
+<h3>自定义验证器（Custom Validator）<a class="headerlink" href="#custom-validator" title="永久链接至标题">¶</a></h3>
 <p>下面的例子中展示了如何创建自定义的验证器：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
@@ -297,11 +301,11 @@
     <span class="sd">/**</span>
 <span class="sd">     * 执行验证</span>
 <span class="sd">     *</span>
-<span class="sd">     * @param Phalcon\Validation $validator</span>
+<span class="sd">     * @param Phalcon\ValidatorInterface $validator</span>
 <span class="sd">     * @param string $attribute</span>
 <span class="sd">     * @return boolean</span>
 <span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">validate</span><span class="p">(</span><span class="nx">Validation</span> <span class="nv">$validator</span><span class="p">,</span> <span class="nv">$attribute</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">validate</span><span class="p">(</span><span class="nx">ValidatorInterface</span> <span class="nv">$validator</span><span class="p">,</span> <span class="nv">$attribute</span><span class="p">,</span> <span class="nx">bool</span> <span class="nv">$allowEmpty</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$validator</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">(</span><span class="nv">$attribute</span><span class="p">);</span>
 
@@ -332,6 +336,7 @@
 </pre></div>
 </div>
 <p>最重要的一点即是难证器要返回一个布尔值以标识验证是否成功。</p>
+</div>
 <div class="section" id="the-use-of-the-validator">
 <h3>验证器的使用（The use of the validator）<a class="headerlink" href="#the-use-of-the-validator" title="永久链接至标题">¶</a></h3>
 <p>下面的例子中展示了如何单独使用验证器：</p>
@@ -432,6 +437,27 @@
         <span class="k">echo</span> <span class="nv">$message</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-validator-message">
+<h2>通过配置文件重定义验证器信息（Custom Validator Message）<a class="headerlink" href="#custom-validator-message" title="永久链接至标题">¶</a></h2>
+<p>在`messages`目录下创建配置文件`validation.php`，内容如下：</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;PresenceOf&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;字段 :field 必须填写&#39;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>也可以指定配置文件名称：</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span>&lt;?php
+
+// 全局设置
+Phalcon\Validation::setMessageFilename(&#39;MyValidation&#39;);
+
+// 只对当前实例有效
+$validation = new Phalcon\Validation(NULL, array(&#39;messageFilename&#39; =&gt; MyValidation&#39;));
 </pre></div>
 </div>
 </div>
@@ -566,14 +592,14 @@
 </div>
 </div>
 <div class="section" id="avoid-validate-empty-values">
-<h2>Avoid validate empty values<a class="headerlink" href="#avoid-validate-empty-values" title="永久链接至标题">¶</a></h2>
+<h2>允许空值（Avoid validate empty values）<a class="headerlink" href="#avoid-validate-empty-values" title="永久链接至标题">¶</a></h2>
 <p>You can pass the option &#8216;allowEmpty&#8217; to all the built-in validators to avoid the validation to be performed if an empty value is passed:</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">use</span> <span class="nx">Phalcon\Validation</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Validation\Validator\Regex</span><span class="p">;</span>
 
-<span class="nv">$validation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Validation</span><span class="p">();</span>
+<span class="nv">$validation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Validation</span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;allowEmpty&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">));</span>
 
 <span class="nv">$validation</span>
     <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;telephone&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Regex</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>

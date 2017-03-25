@@ -91,8 +91,8 @@
 			  
   <div class="section" id="class-phalcon-mvc-router">
 <h1>Class <strong>Phalcon\Mvc\Router</strong><a class="headerlink" href="#class-phalcon-mvc-router" title="永久链接至标题">¶</a></h1>
-<p><em>extends</em> abstract class <a class="reference internal" href="Phalcon_DI_Injectable.html"><span class="doc">Phalcon\DI\Injectable</span></a></p>
-<p><em>implements</em> <a class="reference internal" href="Phalcon_Events_EventsAwareInterface.html"><span class="doc">Phalcon\Events\EventsAwareInterface</span></a>, <a class="reference internal" href="Phalcon_DI_InjectionAwareInterface.html"><span class="doc">Phalcon\DI\InjectionAwareInterface</span></a>, <a class="reference internal" href="Phalcon_Mvc_RouterInterface.html"><span class="doc">Phalcon\Mvc\RouterInterface</span></a></p>
+<p><em>extends</em> abstract class <a class="reference internal" href="Phalcon_Di_Injectable.html"><span class="doc">Phalcon\Di\Injectable</span></a></p>
+<p><em>implements</em> <a class="reference internal" href="Phalcon_Events_EventsAwareInterface.html"><span class="doc">Phalcon\Events\EventsAwareInterface</span></a>, <a class="reference internal" href="Phalcon_Di_InjectionAwareInterface.html"><span class="doc">Phalcon\Di\InjectionAwareInterface</span></a>, <a class="reference internal" href="Phalcon_Mvc_RouterInterface.html"><span class="doc">Phalcon\Mvc\RouterInterface</span></a></p>
 <p><span class="raw-html"><a href="https://github.com/dreamsxin/cphalcon7/blob/master/ext/mvc/router.c" class="btn btn-default btn-sm">Source on GitHub</a></span></p>
 <p>Phalcon\Mvc\Router is the standard framework router. Routing is the process of taking a URI endpoint (that part of the URI which comes after the base URL) and decomposing it into parameters to determine which module, controller, and action of that controller should receive the request</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
@@ -192,7 +192,7 @@
 <p>Add a route to the router that only match if the HTTP method is OPTIONS</p>
 <p>public <a class="reference internal" href="Phalcon_Mvc_Router_Route.html"><span class="doc">Phalcon\Mvc\Router\Route</span></a>  <strong>addHead</strong> (<em>string</em> $pattern, [<em>string/array</em> $paths], [<em>unknown</em> $regex])</p>
 <p>Adds a route to the router that only match if the HTTP method is HEAD</p>
-<p>public <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Router</span></a>  <strong>mount</strong> (<em>unknown</em> $group)</p>
+<p>public <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Router</span></a>  <strong>mount</strong> (<a class="reference internal" href="Phalcon_Mvc_Router_Group.html"><span class="doc">Phalcon\Mvc\Router\Group</span></a> $group)</p>
 <p>Mounts a group of routes in the router</p>
 <p>public <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Router</span></a>  <strong>notFound</strong> (<em>array|string</em> $paths)</p>
 <p>Set a group of paths to be returned when none of the defined routes are matched</p>
@@ -214,7 +214,7 @@
 <p>Sets the name of the action</p>
 <p>public <em>string</em>  <strong>getActionName</strong> ()</p>
 <p>Returns the processed action name</p>
-<p>public <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Router</span></a>  <strong>setParams</strong> (<em>string</em> $params)</p>
+<p>public <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Router</span></a>  <strong>setParams</strong> (<em>array</em> $params)</p>
 <p>Sets the params</p>
 <p>public <em>array</em>  <strong>getParams</strong> ()</p>
 <p>Returns the processed parameters</p>
@@ -232,27 +232,27 @@
 <p>Returns a route object by its name</p>
 <p>public  <strong>isExactControllerName</strong> ()</p>
 <p>Returns whether controller name should not be mangled</p>
-<p>public  <strong>setDI</strong> (<a class="reference internal" href="Phalcon_DIInterface.html"><span class="doc">Phalcon\DIInterface</span></a> $dependencyInjector) inherited from Phalcon\DI\Injectable</p>
+<p>public  <strong>setDI</strong> (<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector) inherited from Phalcon\Di\Injectable</p>
 <p>Sets the dependency injector</p>
-<p>public <a class="reference internal" href="Phalcon_DIInterface.html"><span class="doc">Phalcon\DIInterface</span></a>  <strong>getDI</strong> ([<em>unknown</em> $error], [<em>unknown</em> $notUseDefault]) inherited from Phalcon\DI\Injectable</p>
+<p>public <a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a>  <strong>getDI</strong> ([<em>unknown</em> $error], [<em>unknown</em> $notUseDefault]) inherited from Phalcon\Di\Injectable</p>
 <p>Returns the internal dependency injector</p>
-<p>public  <strong>setEventsManager</strong> (<a class="reference internal" href="Phalcon_Events_ManagerInterface.html"><span class="doc">Phalcon\Events\ManagerInterface</span></a> $eventsManager) inherited from Phalcon\DI\Injectable</p>
+<p>public  <strong>setEventsManager</strong> (<a class="reference internal" href="Phalcon_Events_ManagerInterface.html"><span class="doc">Phalcon\Events\ManagerInterface</span></a> $eventsManager) inherited from Phalcon\Di\Injectable</p>
 <p>Sets the event manager</p>
-<p>public <a class="reference internal" href="Phalcon_Events_ManagerInterface.html"><span class="doc">Phalcon\Events\ManagerInterface</span></a>  <strong>getEventsManager</strong> () inherited from Phalcon\DI\Injectable</p>
+<p>public <a class="reference internal" href="Phalcon_Events_ManagerInterface.html"><span class="doc">Phalcon\Events\ManagerInterface</span></a>  <strong>getEventsManager</strong> () inherited from Phalcon\Di\Injectable</p>
 <p>Returns the internal event manager</p>
-<p>public <em>boolean</em>  <strong>fireEvent</strong> (<em>string</em> $eventName, [<em>unknown</em> $data], [<em>unknown</em> $cancelable]) inherited from Phalcon\DI\Injectable</p>
+<p>public <em>boolean</em>  <strong>fireEvent</strong> (<em>string</em> $eventName, [<em>unknown</em> $data], [<em>unknown</em> $cancelable]) inherited from Phalcon\Di\Injectable</p>
 <p>Fires an event, implicitly calls behaviors and listeners in the events manager are notified</p>
-<p>public <em>boolean</em>  <strong>fireEventCancel</strong> (<em>string</em> $eventName, [<em>unknown</em> $data], [<em>unknown</em> $cancelable]) inherited from Phalcon\DI\Injectable</p>
+<p>public <em>boolean</em>  <strong>fireEventCancel</strong> (<em>string</em> $eventName, [<em>unknown</em> $data], [<em>unknown</em> $cancelable]) inherited from Phalcon\Di\Injectable</p>
 <p>Fires an event, implicitly calls behaviors and listeners in the events manager are notified This method stops if one of the callbacks/listeners returns boolean false</p>
-<p>public <em>boolean</em>  <strong>hasService</strong> (<em>string</em> $name) inherited from Phalcon\DI\Injectable</p>
+<p>public <em>boolean</em>  <strong>hasService</strong> (<em>string</em> $name) inherited from Phalcon\Di\Injectable</p>
 <p>Check whether the DI contains a service by a name</p>
-<p>public <em>mixed</em>  <strong>getResolveService</strong> (<em>string</em> $name, [<em>unknown</em> $args], [<em>unknown</em> $noerror], [<em>unknown</em> $noshared]) inherited from Phalcon\DI\Injectable</p>
+<p>public <em>mixed</em>  <strong>getResolveService</strong> (<em>string</em> $name, [<em>unknown</em> $args], [<em>unknown</em> $noerror], [<em>unknown</em> $noshared]) inherited from Phalcon\Di\Injectable</p>
 <p>Resolves the service based on its configuration</p>
-<p>public  <strong>__get</strong> (<em>unknown</em> $property) inherited from Phalcon\DI\Injectable</p>
+<p>public  <strong>__get</strong> (<em>unknown</em> $property) inherited from Phalcon\Di\Injectable</p>
 <p>Magic method __get</p>
-<p>public  <strong>__sleep</strong> () inherited from Phalcon\DI\Injectable</p>
+<p>public  <strong>__sleep</strong> () inherited from Phalcon\Di\Injectable</p>
 <p>...</p>
-<p>public  <strong>__debugInfo</strong> () inherited from Phalcon\DI\Injectable</p>
+<p>public  <strong>__debugInfo</strong> () inherited from Phalcon\Di\Injectable</p>
 <p>...</p>
 </div>
 </div>

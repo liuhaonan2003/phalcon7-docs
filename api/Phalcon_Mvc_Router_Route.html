@@ -95,7 +95,7 @@
 <p>This class represents every route added to the router</p>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h2>
-<p>public  <strong>__construct</strong> (<em>string</em> $pattern, [<em>array</em> $paths], [<em>array|string</em> $httpMethods], [<em>unknown</em> $regex])</p>
+<p>public  <strong>__construct</strong> (<em>string</em> $pattern, [<em>array</em> $paths], [<em>array|string</em> $httpMethods], [<em>array</em> $regex])</p>
 <p>Phalcon\Mvc\Router\Route constructor</p>
 <p>public <em>string</em>  <strong>compilePattern</strong> (<em>string</em> $pattern, [<em>unknown</em> $regex])</p>
 <p>Replaces placeholders from pattern returning a valid PCRE regular expression</p>
@@ -107,7 +107,7 @@
  <span class="nv">$route</span><span class="o">-&gt;</span><span class="na">via</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
-<p>public  <strong>reConfigure</strong> (<em>string</em> $pattern, [<em>string|array</em> $paths], [<em>unknown</em> $regex])</p>
+<p>public  <strong>reConfigure</strong> (<em>string</em> $pattern, [<em>string|array</em> $paths], [<em>array</em> $regex])</p>
 <p>Reconfigure the route adding a new pattern and a set of paths</p>
 <p>public <em>string</em>  <strong>getName</strong> ()</p>
 <p>Returns the route&#8217;s name</p>
@@ -177,7 +177,7 @@
 <p>Returns the default action name</p>
 <p>public <em>mixed</em>  <strong>getDefaultParams</strong> ()</p>
 <p>Returns the default params</p>
-<p>public <em>string</em>  <strong>setUrlGenerator</strong> (<em>unknown</em> $handler)</p>
+<p>public <em>string</em>  <strong>setUrlGenerator</strong> (<em>Closure</em> $handler)</p>
 <p>Sets the Url Generator</p>
 <p>public <em>callable</em>  <strong>getUrlGenerator</strong> ()</p>
 <p>Returns the Url Generator</p>

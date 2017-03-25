@@ -84,7 +84,7 @@
 			<div class="panel-body"><ul>
 <li><a class="reference internal" href="#">Validating Models</a><ul>
 <li><a class="reference internal" href="#validating-data-integrity">Validating Data Integrity</a></li>
-<li><a class="reference internal" href="#validation-messages">Validation Messages</a></li>
+<li><a class="reference internal" href="#validation-messages">验证信息（Validation Messages）</a></li>
 <li><a class="reference internal" href="#validation-failed-events">Validation Failed Events</a></li>
 </ul>
 </li>
@@ -185,12 +185,21 @@ the value is not included in the method then the validator will fail and return 
 </div>
 </div>
 <div class="section" id="validation-messages">
-<h2>Validation Messages<a class="headerlink" href="#validation-messages" title="永久链接至标题">¶</a></h2>
-<p><a class="reference internal" href="../api/Phalcon_Mvc_Model.html"><span class="doc">Phalcon\Mvc\Model</span></a> has a messaging subsystem that provides a flexible way to output or store the
-validation messages generated during the insert/update processes.</p>
-<p>Each message is an instance of <span class="xref doc">Phalcon\Mvc\Model\Message</span> and the set of
-messages generated can be retrieved with the <code class="code docutils literal"><span class="pre">getMessages()</span></code> method. Each message provides extended information like the field name that
-generated the message or the message type:</p>
+<h2>验证信息（Validation Messages）<a class="headerlink" href="#validation-messages" title="永久链接至标题">¶</a></h2>
+<p>通过自定义方法 <cite>getLabel</cite>，我们可以实现自定义字段显示名 <a class="reference internal" href="validation.html"><span class="doc">了解更多</span></a></p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">Robots</span> <span class="k">extends</span> <span class="nx">Phalcon\Mvc\Model</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getLabel</span><span class="p">(</span><span class="nv">$field</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$field</span><span class="p">))</span> <span class="p">{</span>
+
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$robot</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">()</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
@@ -204,7 +213,7 @@ generated the message or the message type:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="../api/Phalcon_Mvc_Model.html"><span class="doc">Phalcon\Mvc\Model</span></a> can generate the following types of validation messages:</p>
+<p>模型会比验证器多生成下面几种类型的验证信息：</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="14%" />
@@ -216,14 +225,8 @@ generated the message or the message type:</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>PresenceOf</td>
-<td>Generated when a field with a non-null attribute on the database is trying to insert/update a null value</td>
-</tr>
-<tr class="row-odd"><td>ConstraintViolation</td>
+<tr class="row-even"><td>ConstraintViolation</td>
 <td>Generated when a field part of a virtual foreign key is trying to insert/update a value that doesn&#8217;t exist in the referenced model</td>
-</tr>
-<tr class="row-even"><td>InvalidValue</td>
-<td>Generated when a validator failed because of an invalid value</td>
 </tr>
 <tr class="row-odd"><td>InvalidCreateAttempt</td>
 <td>Produced when a record is attempted to be created but it already exists</td>

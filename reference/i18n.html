@@ -25,7 +25,7 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="top" title="Phalcon7 1.2.1 文档" href="../index.html" />
     <link rel="next" title="助手类（Helpers）" href="helpers.html" />
-    <link rel="prev" title="套接字类（Socket Class）" href="socket.html" /> 
+    <link rel="prev" title="服务类（Server Class）" href="server.html" /> 
 </head>
 <body>
 
@@ -69,7 +69,7 @@
           <a href="helpers.html" title="助手类（Helpers）"
              accesskey="N">下一页</a> |</li>
         <li class="right" >
-          <a href="socket.html" title="套接字类（Socket Class）"
+          <a href="server.html" title="服务类（Server Class）"
              accesskey="P">上一页</a> |</li>
         <li><a href="http://myleftstudio.com">Home</a> &raquo;</li>
         <li><a href="../index.html">Phalcon7 1.2.1 文档</a> &raquo;</li> 
@@ -101,7 +101,7 @@
 </ul>
 </div>
 			<div class="panel-heading">上一个主题</div>
-            <div class="panel-body"><p class="topless"><a href="socket.html" title="上一章">&lt; 套接字类（Socket Class）</a></p></div>
+            <div class="panel-body"><p class="topless"><a href="server.html" title="上一章">&lt; 服务类（Server Class）</a></p></div>
 			<div class="panel-heading">下一个主题</div>
             <div class="panel-body"><p class="topless"><a href="helpers.html" title="下一章">助手类（Helpers） &gt;</a></p></div>
 		</div>
@@ -119,6 +119,7 @@
 <h2>区域和语言（Locale And Language）<a class="headerlink" href="#locale-and-language" title="永久链接至标题">¶</a></h2>
 <p>Phalcon 通过 <a class="reference internal" href="../api/Phalcon_Translate_Adapter_NativeArray.html"><span class="doc">Phalcon\Translate\Adapter\NativeArray</span></a> 和 <a class="reference internal" href="../api/Phalcon_Translate_Adapter_Gettext.html"><span class="doc">Phalcon\Translate\Adapter\Gettext</span></a> 提供了一套轻量级的语言翻译功能。</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
 <span class="nv">$t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\Translate\Adapter\Gettext</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
     <span class="s1">&#39;locale&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;zh_CN.utf8&#39;</span><span class="p">,</span>
     <span class="s1">&#39;defaultDomain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;messages&#39;</span><span class="p">,</span>
@@ -144,20 +145,24 @@
 <h3>消息格式化（Message Format）<a class="headerlink" href="#message-format" title="永久链接至标题">¶</a></h3>
 <p>在要翻译的消息里，你可以嵌入一些占位符，并让它们通过动态的参数值来代替。你甚至可以根据目标语言格式的参数值来使用特殊的占位符。
 在下面的例子中， 占位符 {username} 在 “Hello, {username}！” 中将分别被 &#8216;Alexander&#8217;和&#8217;Qiang&#8217; 所替换。</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$username = &#39;Phalcon&#39;;</span>
-<span class="x">// 输出：“Hello, Phalcon”</span>
-<span class="x">echo $t-&gt;_(&#39;Hello, %username%!&#39;, [</span>
-<span class="x">    &#39;username&#39; =&gt; $username,</span>
-<span class="x">]);</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="nv">$username</span> <span class="o">=</span> <span class="s1">&#39;Phalcon&#39;</span><span class="p">;</span>
+<span class="c1">// 输出：“Hello, Phalcon”</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">_</span><span class="p">(</span><span class="s1">&#39;Hello, %username%!&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="nv">$username</span><span class="p">,</span>
+<span class="p">]);</span>
 </pre></div>
 </div>
 <p>占位符也可以是从零开始的整数序列，比如下面的例子中， <cite>%0%</cite>、<cite>%1%</cite> 和 <cite>%2%</cite> 将分别被 <cite>$price</cite>、<cite>$count</cite> 和 <cite>$total</cite> 所替换。</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$price = 100;</span>
-<span class="x">$count = 1;</span>
-<span class="x">$total = 200;</span>
-<span class="x">echo $t-&gt;_(&#39;Price: {0}, Count: {1}, Total: {2}&#39;, [</span>
-<span class="x">    $price, $count, $total</span>
-<span class="x">]);</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="nv">$price</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="nv">$count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nv">$total</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">_</span><span class="p">(</span><span class="s1">&#39;Price: {0}, Count: {1}, Total: {2}&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="nv">$price</span><span class="p">,</span> <span class="nv">$count</span><span class="p">,</span> <span class="nv">$total</span>
+<span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -282,7 +287,7 @@ examples below on the usage of this class:</p>
           <a href="helpers.html" title="助手类（Helpers）"
              >下一页</a> |</li>
         <li class="right" >
-          <a href="socket.html" title="套接字类（Socket Class）"
+          <a href="server.html" title="服务类（Server Class）"
              >上一页</a> |</li> 
       </ul>
     </div>

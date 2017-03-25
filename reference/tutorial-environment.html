@@ -177,7 +177,7 @@ app/
 
 <span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerDirs</span><span class="p">(</span><span class="nv">$dirs</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
 
-<span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\DI\FactoryDefault</span><span class="p">();</span>
+<span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\Di\FactoryDefault</span><span class="p">();</span>
 
 <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$config</span><span class="p">,</span> <span class="nv">$environment</span><span class="p">)</span> <span class="p">{</span>
     <span class="nv">$view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Phalcon\Mvc\View</span><span class="p">();</span>

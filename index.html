@@ -361,7 +361,7 @@ Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，�
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference/models-validation.html">Validating Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/models-validation.html#validating-data-integrity">Validating Data Integrity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/models-validation.html#validation-messages">Validation Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/models-validation.html#validation-messages">验证信息（Validation Messages）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/models-validation.html#validation-failed-events">Validation Failed Events</a></li>
 </ul>
 </li>
@@ -692,14 +692,16 @@ Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，�
 <li class="toctree-l1"><a class="reference internal" href="reference/validation.html">验证（Validation）</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#initializing-validation">初始化验证（Initializing Validation）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#validators">验证器（Validators）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/validation.html#custom-validator">自定义验证器（Custom Validator）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/validation.html#the-use-of-the-validator">验证器的使用（The use of the validator）</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#validation-messages">验证信息（Validation Messages）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/validation.html#custom-validator-message">通过配置文件重定义验证器信息（Custom Validator Message）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#filtering-of-data">过滤数据（Filtering of Data）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#validation-events">验证事件（Validation Events）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/validation.html#cancelling-validations">取消验证（Cancelling Validations）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/validation.html#avoid-validate-empty-values">Avoid validate empty values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/validation.html#avoid-validate-empty-values">允许空值（Avoid validate empty values）</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference/forms.html">表单（Forms）</a><ul>
@@ -764,6 +766,7 @@ Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，�
 <li class="toctree-l3"><a class="reference internal" href="reference/cache.html#mongo-mongo-backend-options">Mongo 后端存储器选项（Mongo Backend Options）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cache.html#xcache-xcache-backend-options">XCache 后端存储器选项（XCache Backend Options）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cache.html#redis-backend-options">Redis Backend Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cache.html#yac-backend-options">Yac Backend Options</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="reference/cache.html#shared-memory-cache">共享内存缓存（Shared Memory Cache）</a></li>
@@ -937,6 +940,20 @@ Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，�
 <li class="toctree-l2"><a class="reference internal" href="reference/async.html#gets-asynchronous-result">获取异步调用结果（Gets asynchronous result）</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="reference/intrusive.html">侵入式容器（Intrusive Containers）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/intrusive.html#overview">容器类一览（Overview）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/intrusive.html#component-class-list">容器类列表（Component Class List）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/storage.html">本地存储（Storage）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/storage.html#overview">存储类一览（Overview）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/storage.html#component-class-list">存储类列表（Component Class List）</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="reference/socket.html">套接字类（Socket Class）</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/socket.html#socket-server-class">套接字服务端类（Socket Server Class）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/socket.html#socket-client-class">套接字客户端类（Socket Client Class）</a></li>
@@ -945,6 +962,11 @@ Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，�
 <li class="toctree-l1"><a class="reference internal" href="reference/websocket.html">WebSocket 组件</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/websocket.html#id1">WebSocket 服务端类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/websocket.html#id2">WebSocket 客户端类</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/server.html">服务类（Server Class）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/server.html#tcp-tcp-server-class">TCP 服务端类（TCP Server Class）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/server.html#http-http-server-class">HTTP 服务端类（HTTP Server Class）</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference/i18n.html">国际化（Internationalization）</a><ul>
