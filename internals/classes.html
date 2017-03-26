@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Classes &mdash; Phalcon7 1.2.1 文档</title>
+    <meta name="keywords" content="php, phalcon, phalcon7, phalcon php, php framework, faster php framework">
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/phalcon.css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+
+    <script src="../static/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../static/img/favicon.ico"/>
+    <link rel="index" title="索引" href="../index.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="top" title="Phalcon7 1.2.1 文档" href="../index.html" /> 
+</head>
+<body>
+
+<header class="page-header">
+<nav class="navbar" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-container">
+				<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand phalcon-logo" href="/"><span itemprop="name" class="sr-only">Phalcon PHP</span></a>
+		</div>
+
+		<div class="collapse navbar-collapse navbar-right" id="main-menu-container">
+			<ul class="nav navbar-nav main-menu">
+			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
+			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">核心开发手册</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+<div class="heading">
+    <div class="container">
+        <div class="row">
+            <h2>Documentation</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="related">
+      <ul>
+        <li class="right" >
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li><a href="http://myleftstudio.com">Home</a> &raquo;</li>
+        <li><a href="../index.html">Phalcon7 1.2.1 文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+</div>
+
+<div class="container-fluid">
+	<div class="col-md-3 primary-box">
+		<div class="panel panel-default">
+			<div class="panel-heading"><a href="../index.html">內容目录</a></div>
+			<div class="panel-body"><ul>
+<li><a class="reference internal" href="#">Classes</a><ul>
+<li><a class="reference internal" href="#registering-methods-and-its-arguments">Registering methods and its arguments</a></li>
+<li><a class="reference internal" href="#implementing-a-method">Implementing a method</a></li>
+</ul>
+</li>
+</ul>
+</div>
+		</div>
+	</div>
+  <div class="col-md-9 second-box" valign="top">
+	<div class="document">
+		<div class="documentwrapper">
+		  <div class="bodywrapper">
+			<div class="body" >
+			  
+  <div class="section" id="classes">
+<h1>Classes<a class="headerlink" href="#classes" title="永久链接至标题">¶</a></h1>
+<p>As an object oriented framework, Phalcon is mostly composed of classes. The classes are organized into namespaces.
+The following are the steps to export a variable in the extension and also make it available for other classes
+inside the framework.</p>
+<div class="section" id="registering-methods-and-its-arguments">
+<h2>Registering methods and its arguments<a class="headerlink" href="#registering-methods-and-its-arguments" title="永久链接至标题">¶</a></h2>
+<p>In the dev/php_phalcon.h register in the first part of the file the pointer to the zend class entry. Let&#8217;s pretend
+we&#8217;re adding a Phalcon\Auth to the framework:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">extern</span> <span class="n">zend_class_entry</span> <span class="o">*</span><span class="n">phalcon_auth_ce</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Then, we can add the methods prototypes, it&#8217;s neccesary to add all the methods that compose our class:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">PHP_METHOD</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">__construct</span><span class="p">);</span>
+<span class="n">PHP_METHOD</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">getIdentity</span><span class="p">);</span>
+<span class="n">PHP_METHOD</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">auth</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Later in the same file add the information of the arguments of each method. For example, let&#8217;s define the class
+constructor only takes two arguments and they&#8217;re mandatory:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">ZEND_BEGIN_ARG_INFO_EX</span><span class="p">(</span><span class="n">arginfo_phalcon_auth__construct</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ZEND_ARG_INFO</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="n">ZEND_ARG_INFO</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+<span class="n">ZEND_END_ARG_INFO</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s attach methods to the class to which they belong:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">PHALCON_INIT_FUNCS</span><span class="p">(</span><span class="n">phalcon_auth_method_entry</span><span class="p">){</span>
+        <span class="n">PHP_ME</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">__construct</span><span class="p">,</span> <span class="n">arginfo_phalcon_auth__construct</span><span class="p">,</span> <span class="n">ZEND_ACC_PUBLIC</span><span class="p">)</span>
+        <span class="n">PHP_ME</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">getIdentity</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">ZEND_ACC_PUBLIC</span><span class="p">)</span>
+        <span class="n">PHP_ME</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">ZEND_ACC_PUBLIC</span><span class="p">)</span>
+        <span class="n">PHP_FE_END</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>All this happens at dev/php_phalcon.h, if you check that file you will see that everything is registered right there.</p>
+</div>
+<div class="section" id="implementing-a-method">
+<h2>Implementing a method<a class="headerlink" href="#implementing-a-method" title="永久链接至标题">¶</a></h2>
+<p>Each class has its own file .c file, in the case of Phalcon\Auth file would be dev/auth.c:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">//PHP_METHOD(class_name, method_name)</span>
+<span class="n">PHP_METHOD</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">__construct</span><span class="p">){</span>
+
+        <span class="n">zval</span> <span class="o">*</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="c1">//Start a memory frame</span>
+        <span class="n">PHALCON_MM_GROW</span><span class="p">();</span>
+
+        <span class="c1">//Receive the method parameters</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">()</span> <span class="n">TSRMLS_CC</span><span class="p">,</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
+                <span class="n">RETURN_NULL</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">//Release the memory used</span>
+        <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With the above code we create the constructor of the class Phalcon\Auth, a method is defined with the macro
+PHP_METHOD, first we put the class name and then the name of the method, although Phalcon uses namespaces,
+class names have _ instead of \:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">PHP_METHOD</span><span class="p">(</span><span class="n">Phalcon_Auth</span><span class="p">,</span> <span class="n">__construct</span><span class="p">){</span>
+</pre></div>
+</div>
+<p>If the method has parameters we receive them using zend_parse_parameters:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">()</span> <span class="n">TSRMLS_CC</span><span class="p">,</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
+        <span class="n">RETURN_NULL</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we do not receive the correct number of parameters will result in an error message. You see, there&#8217;s an argument
+&#8220;zz&#8221; to receive the parameters, this indicates the type of data received and the number of them. In the above example
+that means that the method is receiving two parameters. If they were three zval then it should be &#8220;zzz&#8221;.</p>
+<p>Then the variables are received in respective order: &amp;adapter_name, &amp;options</p>
+</div>
+</div>
+
+
+			</div>
+		  </div>
+		</div>
+	</div>
+  </div>
+</div>
+    <div class="related">
+      <ul>
+        <li class="right" >
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li> 
+      </ul>
+    </div>
+
+<footer class="footer">
+	<div class="container">
+      <div class="row">
+          <div class="col-xs-6 col-sm-3">
+              <h4>Download</h4>
+              <ul>
+                  <li><a href="https://github.com/dreamsxin/cphalcon7/releases">安裝 Phalcon7</a></li>
+              </ul>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+              <h4>Community</h4>
+              <ul>
+                  <li><a href="https://github.com/dreamsxin/cphalcon7">GitHub</a></li>
+                  <li><a href="https://github.com/dreamsxin/cphalcon7/issues">Issue Tracker</a></li>
+              </ul>
+          </div>
+          <div class="col-xs-6 col-sm-2">
+              <h4>About</h4>
+              <ul>
+                  <li><a href="https://github.com/dreamsxin/cphalcon/wiki/%E6%8D%90%E8%B5%A0%EF%BC%88Donation%EF%BC%89">Donate</a></li>
+              </ul>
+          </div>
+          <div id="license-spaccer" class="visible-xs"></div>
+          <div id="license-wrapper" class="col-xs-12 col-sm-4">
+              <p class="license">
+
+                  Phalcon7 Framework is released under the <a href="https://github.com/dreamsxin/cphalcon7/blob/master/docs/LICENSE.md">new BSD license</a>.<br>
+                  Except where otherwise noted, content on this site is licensed under the
+                  <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License.</a>
+              </p>
+              <div class="design">
+                  <span>Designed by:</span>
+
+                  <a href="http://www.fog-city.net/" class="fogcity" target="_blank" title="Fog City Software"><span>Fog City Software</span></a>
+              </div>
+          </div>
+      </div>
+	</div>
+</footer>
+</body>
+</html>
