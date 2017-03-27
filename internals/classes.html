@@ -135,17 +135,10 @@ constructor only takes two arguments and they&#8217;re mandatory:</p>
 
         <span class="n">zval</span> <span class="o">*</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-        <span class="c1">//Start a memory frame</span>
-        <span class="n">PHALCON_MM_GROW</span><span class="p">();</span>
-
         <span class="c1">//Receive the method parameters</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">()</span> <span class="n">TSRMLS_CC</span><span class="p">,</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">(),</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">RETURN_NULL</span><span class="p">();</span>
         <span class="p">}</span>
-
-        <span class="c1">//Release the memory used</span>
-        <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -156,8 +149,7 @@ class names have _ instead of \:</p>
 </pre></div>
 </div>
 <p>If the method has parameters we receive them using zend_parse_parameters:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">()</span> <span class="n">TSRMLS_CC</span><span class="p">,</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">PHALCON_MM_RESTORE</span><span class="p">();</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">zend_parse_parameters</span><span class="p">(</span><span class="n">ZEND_NUM_ARGS</span><span class="p">(),</span> <span class="s">&quot;zz&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">adapter_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAILURE</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">RETURN_NULL</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>

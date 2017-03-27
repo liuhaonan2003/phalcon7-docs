@@ -76,8 +76,10 @@
 			<div class="panel-heading"><a href="../index.html">內容目录</a></div>
 			<div class="panel-body"><ul>
 <li><a class="reference internal" href="#">变量（Variables）</a><ul>
+<li><a class="reference internal" href="#id1">标志位</a></li>
 <li><a class="reference internal" href="#creation">创建（Creation）</a></li>
-<li><a class="reference internal" href="#copy-on-write">Copy-on-Write</a></li>
+<li><a class="reference internal" href="#id2">变量的复制</a></li>
+<li><a class="reference internal" href="#id7">变量的分离</a></li>
 </ul>
 </li>
 </ul>
@@ -92,11 +94,68 @@
 			  
   <div class="section" id="variables">
 <h1>变量（Variables）<a class="headerlink" href="#variables" title="永久链接至标题">¶</a></h1>
+<p>PHP7中的zval的类型做了比较大的调整, 总体来说有如下17种类型:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/* regular data types */</span>
+<span class="cp">#define IS_UNDEF                    0</span>
+<span class="cp">#define IS_NULL                     1</span>
+<span class="cp">#define IS_FALSE                    2</span>
+<span class="cp">#define IS_TRUE                     3</span>
+<span class="cp">#define IS_LONG                     4</span>
+<span class="cp">#define IS_DOUBLE                   5</span>
+<span class="cp">#define IS_STRING                   6</span>
+<span class="cp">#define IS_ARRAY                    7</span>
+<span class="cp">#define IS_OBJECT                   8</span>
+<span class="cp">#define IS_RESOURCE                 9</span>
+<span class="cp">#define IS_REFERENCE                10</span>
+
+<span class="cm">/* constant expressions */</span>
+<span class="cp">#define IS_CONSTANT                 11</span>
+<span class="cp">#define IS_CONSTANT_AST             12</span>
+
+<span class="cm">/* fake types */</span>
+<span class="cp">#define _IS_BOOL                    13</span>
+<span class="cp">#define IS_CALLABLE                 14</span>
+
+<span class="cm">/* internal types */</span>
+<span class="cp">#define IS_INDIRECT                 15</span>
+<span class="cp">#define IS_PTR                      17</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>标志位<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>作用于zval的有：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define IS_TYPE_CONSTANT            </span><span class="c1">//是常量类型</span>
+<span class="cp">#define IS_TYPE_IMMUTABLE           </span><span class="c1">//不可变的类型， 比如存在共享内存的数组</span>
+<span class="cp">#define IS_TYPE_REFCOUNTED          </span><span class="c1">//需要引用计数的类型</span>
+<span class="cp">#define IS_TYPE_COLLECTABLE         </span><span class="c1">//可能包含循环引用的类型(IS_ARRAY, IS_OBJECT)</span>
+<span class="cp">#define IS_TYPE_COPYABLE            </span><span class="c1">//可被复制的类型， 还记得我之前讲的对象和资源的例外么？ 对象和资源就不是</span>
+<span class="cp">#define IS_TYPE_SYMBOLTABLE         </span><span class="c1">//zval保存的是全局符号表， 这个在我之前做了一个调整以后没用了， 但还保留着兼容，下个版本会去掉</span>
+</pre></div>
+</div>
+<p>作用于字符串的有:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define IS_STR_PERSISTENT               </span><span class="c1">//是malloc分配内存的字符串</span>
+<span class="cp">#define IS_STR_INTERNED             </span><span class="c1">//INTERNED STRING</span>
+<span class="cp">#define IS_STR_PERMANENT            </span><span class="c1">//不可变的字符串， 用作哨兵作用</span>
+<span class="cp">#define IS_STR_CONSTANT             </span><span class="c1">//代表常量的字符串</span>
+<span class="cp">#define IS_STR_CONSTANT_UNQUALIFIED </span><span class="c1">//带有可能命名空间的常量字符串</span>
+</pre></div>
+</div>
+<p>作用于数组的有:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define IS_ARRAY_IMMUTABLE  </span><span class="c1">//同IS_TYPE_IMMUTABLE</span>
+</pre></div>
+</div>
+<p>作用于对象的有：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define IS_OBJ_APPLY_COUNT          </span><span class="c1">//递归保护</span>
+<span class="cp">#define IS_OBJ_DESTRUCTOR_CALLED    </span><span class="c1">//析构函数已经调用</span>
+<span class="cp">#define IS_OBJ_FREE_CALLED          </span><span class="c1">//清理函数已经调用</span>
+<span class="cp">#define IS_OBJ_USE_GUARDS           </span><span class="c1">//魔术方法递归保护</span>
+<span class="cp">#define IS_OBJ_HAS_GUARDS           </span><span class="c1">//是否有魔术方法递归保护标志</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="creation">
 <h2>创建（Creation）<a class="headerlink" href="#creation" title="永久链接至标题">¶</a></h2>
-<p>Unlike PHP, each variable in C must be declared at the beginning of the function in which we are working. Also,
-as noted above, all variables must be initialized before the use. Even, it should be reset again when we change its
-value, for example:</p>
+<p>与 PHP 不同，C 中的每个变量必须在我们函数的开头声明，在使用前必须初始化。甚至，当我们改变它的时候，它应该再次被重新初始化，例如：</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Declare the variable and initialize the variable</span>
 <span class="n">zval</span> <span class="n">some_number</span> <span class="o">=</span> <span class="p">{};</span>
 
@@ -111,94 +170,32 @@ value, for example:</p>
 <p>If a variable is assigned within a cycle or it&#8217;s re-assigned is important to initialize it to NULL in its declaration.
 By doing this, PHALCON_INIT_NVAR will know if the variable needs memory or it already have memory allocated.</p>
 </div>
-<div class="section" id="copy-on-write">
-<h2>Copy-on-Write<a class="headerlink" href="#copy-on-write" title="永久链接至标题">¶</a></h2>
-<p>All the zval variables that we use in Phalcon are pointers. Each pointer points to its value in memory. Two pointers
-may eventually point to the same value in memory:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">zval</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{},</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<div class="section" id="id2">
+<h2>变量的复制<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>PHP7 中 提供 <cite>ZVAL_COPY_VALUE</cite>、<a href="#id3"><span class="problematic" id="id4">`</span></a>ZVAL_COPY`与 <a href="#id5"><span class="problematic" id="id6">`</span></a>ZVAL_DUP`等宏定义来实现变量的复制。</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">zval</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{};</span>
 
 <span class="n">ZVAL_LONG</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">1500</span><span class="p">);</span>
 
-<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="c1">// 复制</span>
+<span class="n">ZVAL_COPY_VALUE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
 
-<span class="c1">//Print both zvals print the same value</span>
-<span class="n">zend_print_zval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1500</span>
-<span class="n">zend_print_zval</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1500</span>
+<span class="c1">// 复制并增加 a 引用计数，不过对不是 IS_TYPE_REFCOUNTED 的不会增加引用计数</span>
+<span class="n">ZVAL_COPY</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+
+<span class="c1">// 会复制数组所有结构属性，比如当前指针位置等信息</span>
+<span class="n">array_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="n">ZVAL_DUP</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Changing the value of any of the two variables will change both pointers because their value are the same:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">ZVAL_LONG</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">);</span>
-
-<span class="c1">//Print both zvals print the same value</span>
-<span class="n">zend_print_zval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// -10</span>
-<span class="n">zend_print_zval</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// -10</span>
-</pre></div>
 </div>
-<p>Now, imagine the following PHP code:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
-
-<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">;</span> <span class="c1">// 1500 1500</span>
-</pre></div>
-</div>
-<p>This is practically the same as we did before, however, let&#8217;s change the value of $b:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
-
-<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">;</span> <span class="c1">// 1500 1500</span>
-
-<span class="nv">$b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span>
-
-<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">;</span> <span class="c1">// 1500 -10</span>
-</pre></div>
-</div>
-<p>To our eyes, PHP has done what we did in C, but in reality there has been an internal process called copy-on-write.  Pretend that our main memory is this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">// $a = &quot;hello&quot;</span>
-<span class="x">            +---------+----+</span>
-<span class="x">            |   0x1   | RC |</span>
-<span class="x">            +---------+----+</span>
-<span class="x">zval *a --&gt; | &quot;hello&quot; |  1 |</span>
-<span class="x">            +---------+----+</span>
-</pre></div>
-</div>
-<p>The variable $a is pointing to a virtual memory address 0x1, also that memory have a reference counting of 1. It means that only one variable
-it&#8217;s pointing to that memory address.</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">// $b = $a</span>
-<span class="x">            +---------+----+</span>
-<span class="x">            |   0x1   | RC |</span>
-<span class="x">            +---------+----+</span>
-<span class="x">zval *a --&gt; | &quot;hello&quot; |  2 |</span>
-<span class="x">            +---------+----+</span>
-<span class="x">zval *b ---------^</span>
-</pre></div>
-</div>
-<p>Now, $b is equal to $a, now both variables are pointing to the same memory address 0x1. The reference counting is now 2, because two variables
-are pointing to the same memory slot. As you can see PHP is saving memory, although the variables have different names, they&#8217;re pointing to the same value in memory so that we are not unnecessarily doubling its value.</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">// $b = 18</span>
-<span class="x">            +---------+----+  +---------+----+</span>
-<span class="x">            |   0x1   | RC |  |   0x2   | RC |</span>
-<span class="x">            +---------+----+  +---------+----+</span>
-<span class="x">zval *a --&gt; | &quot;hello&quot; |  1 |  |    18   |  1 |</span>
-<span class="x">            +---------+----+  +---------+----+</span>
-<span class="x">zval *b ----------------------------^</span>
-</pre></div>
-</div>
-<p>We are changing the variable $b, to avoid changing the value of $a, PHP performs an internal process called &#8220;separation&#8221;. In this process, PHP allocates memory for $b and reduces the reference count in $a to indicate that $b is not pointing anymore to $a.</p>
-<p>Let&#8217;s see how to write the above process using Zend API:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">zval</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{};</span>
-
-<span class="n">ZVAL_STRING</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
-
-<span class="n">ZVAL_COPY_VALUE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
-
-<span class="n">SEPARATE_STRING</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
-<span class="n">ZVAL_LONG</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="mi">18</span><span class="p">);</span>
-</pre></div>
-</div>
+<div class="section" id="id7">
+<h2>变量的分离<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>PHP7 中 提供 <cite>SEPARATE_STRING</cite>、<cite>SEPARATE_ARRAY</cite>、 <a href="#id8"><span class="problematic" id="id9">`</span></a>SEPARATE_ZVAL`与`SEPARATE_ZVAL_IF_NOT_REF`等宏定义来实现变量分离。
+都会预先判断是否需要引用计数（IS_TYPE_REFCOUNTED）的类型，如果需要才会进行分离。</p>
+<p><cite>SEPARATE_STRING</cite> - 如果类型是 IS_TYPE_REFCOUNTED 并且引用计数大于 1，将执行 <cite>zval_copy_ctor_func</cite>，并减少自身的引用计数。</p>
+<p><cite>SEPARATE_ARRAY</cite> - 如果引用计数大于 1，将执行 <cite>zval_copy_ctor_func</cite>，如果类型不是不可变的（IS_TYPE_IMMUTABLE）将减少原有值的引用计数。</p>
+<p><cite>SEPARATE_ZVAL</cite> - 如果引用计数大于 1，是可被复制的（IS_TYPE_COPYABLE）或是不可变的（IS_TYPE_IMMUTABLE）类型，将执行 <cite>zval_copy_ctor_func</cite>，如果是引用类型（IS_REFERENCE）的值将先减少自身的引用计数，然后使用 <cite>ZVAL_DUP</cite> 复制。</p>
 </div>
 </div>
 
