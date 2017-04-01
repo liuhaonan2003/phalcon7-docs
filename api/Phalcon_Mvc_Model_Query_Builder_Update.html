@@ -41,7 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -191,13 +192,13 @@
 <span class="nx">Phalcon\Mvc\Model\Query\Builder</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nx">Phalcon\Mvc\Model\Query</span><span class="o">::</span><span class="na">TYPE_SELECT</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Select.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Select</span></a>  <strong>createSelectBuilder</strong> () inherited from Phalcon\Mvc\Model\Query\Builder</p>
+<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Select.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Select</span></a>  <strong>createSelectBuilder</strong> ([<em>array</em> $params], [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector]) inherited from Phalcon\Mvc\Model\Query\Builder</p>
 <p>Create a new Query Builder for Select</p>
-<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Insert.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Insert</span></a>  <strong>createInsertBuilder</strong> () inherited from Phalcon\Mvc\Model\Query\Builder</p>
+<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Insert.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Insert</span></a>  <strong>createInsertBuilder</strong> ([<em>array</em> $params], [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector]) inherited from Phalcon\Mvc\Model\Query\Builder</p>
 <p>Create a new Query Builder for Insert</p>
-<p>public static <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Update</span></a>  <strong>createUpdateBuilder</strong> () inherited from Phalcon\Mvc\Model\Query\Builder</p>
+<p>public static <a class="reference internal" href="#"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Update</span></a>  <strong>createUpdateBuilder</strong> ([<em>array</em> $params], [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector]) inherited from Phalcon\Mvc\Model\Query\Builder</p>
 <p>Create a new Query Builder for Update</p>
-<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Delete.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Delete</span></a>  <strong>createDeleteBuilder</strong> () inherited from Phalcon\Mvc\Model\Query\Builder</p>
+<p>public static <a class="reference internal" href="Phalcon_Mvc_Model_Query_Builder_Delete.html"><span class="doc">Phalcon\Mvc\Model\Query\Builder\Delete</span></a>  <strong>createDeleteBuilder</strong> ([<em>array</em> $params], [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector]) inherited from Phalcon\Mvc\Model\Query\Builder</p>
 <p>Create a new Query Builder for Delete</p>
 <p>public <em>int</em>  <strong>getType</strong> () inherited from Phalcon\Mvc\Model\Query\Builder</p>
 <p>Gets the type of PHQL queries</p>
@@ -235,6 +236,8 @@
 <p>Check whether the DI contains a service by a name</p>
 <p>public <em>mixed</em>  <strong>getResolveService</strong> (<em>string</em> $name, [<em>unknown</em> $args], [<em>unknown</em> $noerror], [<em>unknown</em> $noshared]) inherited from Phalcon\Di\Injectable</p>
 <p>Resolves the service based on its configuration</p>
+<p>public  <strong>attachEvent</strong> (<em>string</em> $eventType, <em>Closure</em> $callback) inherited from Phalcon\Di\Injectable</p>
+<p>Attach a listener to the events</p>
 <p>public  <strong>__get</strong> (<em>unknown</em> $property) inherited from Phalcon\Di\Injectable</p>
 <p>Magic method __get</p>
 <p>public  <strong>__sleep</strong> () inherited from Phalcon\Di\Injectable</p>

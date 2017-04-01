@@ -5,7 +5,7 @@
     
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Working with Arrays &mdash; Phalcon7 1.2.1 文档</title>
+    <title>数组（Working with Arrays） &mdash; Phalcon7 1.2.1 文档</title>
     <meta name="keywords" content="php, phalcon, phalcon7, phalcon php, php framework, faster php framework">
     <link rel="stylesheet" type="text/css" href="../static/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../static/phalcon.css" />
@@ -42,7 +42,7 @@
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
 			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
-			  <li class="first"><a href="/internals/" class="header-nav-link">核心开发手册</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -75,8 +75,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><a href="../index.html">內容目录</a></div>
 			<div class="panel-body"><ul>
-<li><a class="reference internal" href="#">Working with Arrays</a><ul>
-<li><a class="reference internal" href="#one-dimension-arrays">One dimension Arrays</a></li>
+<li><a class="reference internal" href="#">数组（Working with Arrays）</a><ul>
+<li><a class="reference internal" href="#flag">标志位（flag）</a></li>
+<li><a class="reference internal" href="#id1">常用函数列表</a></li>
+<li><a class="reference internal" href="#one-dimension-arrays">一维数组（One dimension Arrays）</a></li>
 </ul>
 </li>
 </ul>
@@ -90,11 +92,61 @@
 			<div class="body" >
 			  
   <div class="section" id="working-with-arrays">
-<h1>Working with Arrays<a class="headerlink" href="#working-with-arrays" title="永久链接至标题">¶</a></h1>
-<p>Although the Zend API provides several functions for working with arrays, the Phalcon API has added others.
-Specifically helping to maintain the reference counting correctly:</p>
+<h1>数组（Working with Arrays）<a class="headerlink" href="#working-with-arrays" title="永久链接至标题">¶</a></h1>
+<p>尽管 Zend API 提供了一些函数来处理数组，但 Phalcon API 中在此基础上封装了更多的函数（kernel/array.h），通过传递标志位（flag）自动完引用计数的处理。</p>
+<div class="section" id="flag">
+<h2>标志位（flag）<a class="headerlink" href="#flag" title="永久链接至标题">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">标志位值</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PH_NOISY</td>
+<td>值不存在时发出警告</td>
+</tr>
+<tr class="row-odd"><td>PH_READONLY</td>
+<td>不增加引用计数</td>
+</tr>
+<tr class="row-even"><td>PH_COPY</td>
+<td>增加引用计数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id1">
+<h2>常用函数列表<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">函数名</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>phalcon_array_isset</td>
+</tr>
+<tr class="row-odd"><td>phalcon_array_fetch</td>
+</tr>
+<tr class="row-even"><td>phalcon_array_isset_fetch</td>
+</tr>
+<tr class="row-odd"><td>phalcon_array_update</td>
+</tr>
+<tr class="row-even"><td>phalcon_array_append</td>
+</tr>
+<tr class="row-odd"><td>phalcon_array_unset</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="one-dimension-arrays">
-<h2>One dimension Arrays<a class="headerlink" href="#one-dimension-arrays" title="永久链接至标题">¶</a></h2>
+<h2>一维数组（One dimension Arrays）<a class="headerlink" href="#one-dimension-arrays" title="永久链接至标题">¶</a></h2>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">zval</span> <span class="n">fruits</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">first_item</span> <span class="o">=</span> <span class="p">{};</span>
 
 <span class="n">array_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fruits</span><span class="p">);</span>
@@ -104,6 +156,8 @@ Specifically helping to maintain the reference counting correctly:</p>
 <span class="n">add_next_index_stringl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fruits</span><span class="p">,</span> <span class="n">SL</span><span class="p">(</span><span class="s">&quot;orange&quot;</span><span class="p">));</span>
 <span class="n">add_next_index_stringl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fruits</span><span class="p">,</span> <span class="n">SL</span><span class="p">(</span><span class="s">&quot;lemon&quot;</span><span class="p">));</span>
 <span class="n">add_next_index_stringl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fruits</span><span class="p">,</span> <span class="n">SL</span><span class="p">(</span><span class="s">&quot;banana&quot;</span><span class="p">));</span>
+
+<span class="n">phalcon_array_append_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fruits</span><span class="p">,</span> <span class="n">SL</span><span class="p">(</span><span class="s">&quot;pear&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
 
 <span class="c1">// Get the first item in the array $fruits[0]</span>
 <span class="n">phalcon_array_fetch_long</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_item</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fruits</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PH_NOISY_CC</span><span class="p">);</span>

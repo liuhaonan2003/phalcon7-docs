@@ -41,7 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -95,7 +96,7 @@
 <p>Phalcon Events Manager, offers an easy way to intercept and manipulate, if needed, the normal flow of operation. With the EventsManager the developer can create hooks or plugins that will offer monitoring of data, manipulation, conditional execution and much more.</p>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h2>
-<p>public  <strong>attach</strong> (<em>string</em> $eventType, <em>callable</em> $handler)</p>
+<p>public  <strong>attach</strong> (<em>string</em> $eventType, <em>callable</em> $handler, [<em>int</em> $priority])</p>
 <p>Attach a listener to the events manager</p>
 <p>public  <strong>enablePriorities</strong> (<em>boolean</em> $enablePriorities)</p>
 <p>Set if priorities are enabled in the EventsManager</p>
@@ -107,7 +108,7 @@
 <p>Check if the events manager is collecting all all the responses returned by every registered listener in a single fire</p>
 <p>public <em>array</em>  <strong>getResponses</strong> ()</p>
 <p>Returns all the responses returned by every handler executed by the last &#8216;fire&#8217; executed</p>
-<p>public  <strong>detach</strong> (<em>unknown</em> $type, <em>object|callable</em> $handler)</p>
+<p>public  <strong>detach</strong> (<em>unknown</em> $eventType, <em>object|callable</em> $handler)</p>
 <p>Detach a listener from the events manager</p>
 <p>public  <strong>detachAll</strong> ([<em>string</em> $type])</p>
 <p>Removes all events from the EventsManager</p>

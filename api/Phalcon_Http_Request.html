@@ -41,7 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -106,6 +107,8 @@
 </div>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h2>
+<p>public  <strong>__construct</strong> ()</p>
+<p>Phalcon\Http\Request constructor</p>
 <p>protected <em>mixed</em>  <strong>_get</strong> (<em>string</em> $name, <em>string|array</em> $filters, <em>mixed</em> $defaultValue, <em>boolean</em> $notAllowEmpty, <em>boolean</em> $noRecursive)</p>
 <p>Internal get wrapper to filter</p>
 <p>public <em>mixed</em>  <strong>get</strong> ([<em>string</em> $name], [<em>string|array</em> $filters], [<em>mixed</em> $defaultValue], [<em>boolean</em> $notAllowEmpty], [<em>boolean</em> $noRecursive])</p>
@@ -263,6 +266,8 @@
 <p>Check whether the DI contains a service by a name</p>
 <p>public <em>mixed</em>  <strong>getResolveService</strong> (<em>string</em> $name, [<em>unknown</em> $args], [<em>unknown</em> $noerror], [<em>unknown</em> $noshared]) inherited from Phalcon\Di\Injectable</p>
 <p>Resolves the service based on its configuration</p>
+<p>public  <strong>attachEvent</strong> (<em>string</em> $eventType, <em>Closure</em> $callback) inherited from Phalcon\Di\Injectable</p>
+<p>Attach a listener to the events</p>
 <p>public  <strong>__get</strong> (<em>unknown</em> $property) inherited from Phalcon\Di\Injectable</p>
 <p>Magic method __get</p>
 <p>public  <strong>__sleep</strong> () inherited from Phalcon\Di\Injectable</p>

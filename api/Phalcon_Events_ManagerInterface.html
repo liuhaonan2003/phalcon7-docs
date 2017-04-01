@@ -41,7 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -94,9 +95,9 @@
 <p>Phalcon\Events\ManagerInterface initializer</p>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h2>
-<p>abstract public  <strong>attach</strong> (<em>string</em> $eventType, <em>object</em> $handler)</p>
+<p>abstract public  <strong>attach</strong> (<em>string</em> $eventType, <em>object</em> $handler, [<em>unknown</em> $priority])</p>
 <p>Attach a listener to the events manager</p>
-<p>abstract public  <strong>detach</strong> (<em>string</em> $type, <em>object</em> $handler)</p>
+<p>abstract public  <strong>detach</strong> (<em>unknown</em> $eventType, <em>object</em> $handler)</p>
 <p>Detach a listener from the events manager</p>
 <p>abstract public  <strong>detachAll</strong> ([<em>string</em> $type])</p>
 <p>Removes all events from the EventsManager</p>

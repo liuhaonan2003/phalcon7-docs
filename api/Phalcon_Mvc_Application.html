@@ -41,7 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -137,7 +138,7 @@
 <p>By default. The view is implicitly buffering all the output You can full disable the view component using this method</p>
 <p>public <a class="reference internal" href="Phalcon_Http_ResponseInterface.html"><span class="doc">Phalcon\Http\ResponseInterface</span></a>  <strong>handle</strong> ([<em>string</em> $uri])</p>
 <p>Handles a MVC request</p>
-<p>public <em>mixed</em>  <strong>request</strong> (<em>unknown</em> $uri, [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector])</p>
+<p>public <em>mixed</em>  <strong>request</strong> (<em>unknown</em> $uri, [<em>array</em> $data], [<a class="reference internal" href="Phalcon_DiInterface.html"><span class="doc">Phalcon\DiInterface</span></a> $dependencyInjector])</p>
 <p>Does a HMVC request in the application</p>
 <p>public  <strong>registerModules</strong> (<em>array</em> $modules, [<em>boolean</em> $merge]) inherited from Phalcon\Application</p>
 <p>Register an array of modules present in the application</p>
@@ -177,6 +178,8 @@
 <p>Check whether the DI contains a service by a name</p>
 <p>public <em>mixed</em>  <strong>getResolveService</strong> (<em>string</em> $name, [<em>unknown</em> $args], [<em>unknown</em> $noerror], [<em>unknown</em> $noshared]) inherited from Phalcon\Di\Injectable</p>
 <p>Resolves the service based on its configuration</p>
+<p>public  <strong>attachEvent</strong> (<em>string</em> $eventType, <em>Closure</em> $callback) inherited from Phalcon\Di\Injectable</p>
+<p>Attach a listener to the events</p>
 <p>public  <strong>__get</strong> (<em>unknown</em> $property) inherited from Phalcon\Di\Injectable</p>
 <p>Magic method __get</p>
 <p>public  <strong>__sleep</strong> () inherited from Phalcon\Di\Injectable</p>
