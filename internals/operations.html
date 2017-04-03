@@ -41,8 +41,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
-			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -76,7 +76,10 @@
 			<div class="panel-heading"><a href="../index.html">內容目录</a></div>
 			<div class="panel-body"><ul>
 <li><a class="reference internal" href="#">变量之间的操作（Operations between Variables）</a><ul>
-<li><a class="reference internal" href="#concatenation">连接（Concatenation）</a></li>
+<li><a class="reference internal" href="#concatenation">连接（Concatenation）</a><ul>
+<li><a class="reference internal" href="#id1">常用函数列表</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -91,7 +94,7 @@
 			  
   <div class="section" id="operations-between-variables">
 <h1>变量之间的操作（Operations between Variables）<a class="headerlink" href="#operations-between-variables" title="永久链接至标题">¶</a></h1>
-<p>我们几乎可以做任何类型的两个变量之间的进行操作，当我们不知道确切的数据类型时，我们可以使用 Zend API 操作它们：</p>
+<p>我们几乎可以做任何类型的两个变量之间的进行操作，当我们不知道确切的数据类型时，我们也可以使用 Zend API 操作它们。</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// First variable is string but it&#39;s a numeric string</span>
 <span class="n">ZVAL_STRING</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_var</span><span class="p">,</span> <span class="s">&quot;100.10&quot;</span><span class="p">);</span>
 
@@ -139,6 +142,32 @@
 <span class="n">ZVAL_STRING</span><span class="p">(</span><span class="o">&amp;</span><span class="n">final</span><span class="p">,</span> <span class="n">final_string</span><span class="p">);</span>
 </pre></div>
 </div>
+<div class="section" id="id1">
+<h3>常用函数列表<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
+<p>Phalcon API 在 Zend API 的基础上提供更多的函数和弘定义（kernel/operators.h）。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">函数名/宏名</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>phalcon_compare</td>
+</tr>
+<tr class="row-odd"><td>phalcon_is_equal</td>
+</tr>
+<tr class="row-even"><td>phalcon_less</td>
+</tr>
+<tr class="row-odd"><td>phalcon_greater</td>
+</tr>
+<tr class="row-even"><td>phalcon_is_scalar</td>
+</tr>
+<tr class="row-odd"><td>phalcon_get_intval</td>
+</tr>
+</tbody>
+</table>
 <p>It&#8217;s short, but if some of your variables aren&#8217;t string you will get a segmentation fault or an unexpected behavior.</p>
 <p>To help to solve this problem, we have created a set of macros to concatenate zvals and strings:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">ZVAL_STRING</span><span class="p">(</span><span class="o">&amp;</span><span class="n">month</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
@@ -156,6 +185,7 @@
 </pre></div>
 </div>
 <p>S=String and V=Zval, just put the S and V to get the right concatenation macro. Easy, no?</p>
+</div>
 </div>
 </div>
 

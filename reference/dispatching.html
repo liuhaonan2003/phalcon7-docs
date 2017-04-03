@@ -43,8 +43,8 @@
 			<ul class="nav navbar-nav main-menu">
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7" class="header-nav-link">GitHub</a></li>
 			  <li class="first"><a href="https://github.com/dreamsxin/cphalcon7/releases" class="header-nav-link">Download</a></li>
-			  <li class="first"><a href="/api/" class="header-nav-link">Phalcon7 API</a></li>
-			  <li class="first"><a href="/internals/" class="header-nav-link">Phalcon7 内核开发手册</a></li>
+			  <li class="first"><a href="/api/" class="header-nav-link">API</a></li>
+			  <li class="first"><a href="/internals/" class="header-nav-link">内核开发手册</a></li>
 			</ul>
 		</div>
 	</div>
@@ -137,7 +137,7 @@
     <span class="c1">// 通过自动加载器实例化控制器类</span>
     <span class="nv">$controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nv">$controllerClass</span><span class="p">();</span>
 
-    <span class="c1">// 执行action</span>
+    <span class="c1">// 执行 action</span>
     <span class="nb">call_user_func_array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$controller</span><span class="p">,</span> <span class="nv">$actionName</span> <span class="o">.</span> <span class="s2">&quot;Action&quot;</span><span class="p">),</span> <span class="nv">$params</span><span class="p">);</span>
 
     <span class="c1">// $finished应该重新加载以检测MVC流</span>
@@ -147,6 +147,8 @@
 </pre></div>
 </div>
 <p>上面的代码缺少了验证，过滤器和额外的检查，但它演示了在调度器中正常的操作流。</p>
+<blockquote class="highlights">
+<div>执行 action 的过程中，可以通过 <cite>throw PhalconContinueException(&#8216;提前完成 action&#8217;)</cite> 终止 action 的运行，而不影响后续的程序运行。</div></blockquote>
 <div class="section" id="dispatch-loop-events">
 <h3>循环调度事件（Dispatch Loop Events）<a class="headerlink" href="#dispatch-loop-events" title="永久链接至标题">¶</a></h3>
 <p><a class="reference internal" href="../api/Phalcon_Mvc_Dispatcher.html"><span class="doc">Phalcon\Mvc\Dispatcher</span></a> 可以发送事件给当前的 <a class="reference internal" href="events.html"><span class="doc">EventsManager</span></a> 。
@@ -243,18 +245,17 @@
 <p>一个实例化的控制器会自动作为事件调度的侦听者，所以你可以实现回调函数：</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 
-<span class="k">use</span> <span class="nx">Phalcon\Events\Event</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Controller</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Phalcon\Mvc\Dispatcher</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">PostsController</span> <span class="k">extends</span> <span class="nx">Controller</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">beforeExecuteRoute</span><span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">,</span> <span class="nx">Dispatcher</span> <span class="nv">$dispatcher</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">beforeExecuteRoute</span><span class="p">(</span><span class="nx">Dispatcher</span> <span class="nv">$dispatcher</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// 在每一个找到的动作前执行</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">afterExecuteRoute</span><span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">,</span> <span class="nx">Dispatcher</span> <span class="nv">$dispatcher</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">afterExecuteRoute</span><span class="p">(</span><span class="nx">Dispatcher</span> <span class="nv">$dispatcher</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// 在每一个找到的动作后执行</span>
     <span class="p">}</span>
@@ -285,7 +286,7 @@
         <span class="c1">// 将流转发到index动作</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatcher</span><span class="o">-&gt;</span><span class="na">forward</span><span class="p">(</span>
             <span class="k">array</span><span class="p">(</span>
-                <span class="s2">&quot;controller&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;controller&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Post&quot;</span><span class="p">,</span> <span class="c1">// 区分大小写，相当于路由处理后的数据</span>
                 <span class="s2">&quot;action&quot;</span>     <span class="o">=&gt;</span> <span class="s2">&quot;index&quot;</span>
             <span class="p">)</span>
         <span class="p">);</span>
